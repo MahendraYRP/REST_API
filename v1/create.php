@@ -6,11 +6,8 @@ header("Content-type: application/json; charset: UTF-8");
 //3.header -> POST method
 header("Access-Control-Allow-Methods: POST");
 
-
-
 include_once("../config/database.php");
 include_once("../classes/student.php");
-
 
 $db = new Database();
 $connect =   $db->connect();
@@ -19,11 +16,6 @@ $connect =   $db->connect();
 $student = new Student($connect);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
-
-
-    
 
     $data = json_decode(file_get_contents("php://input"));
 

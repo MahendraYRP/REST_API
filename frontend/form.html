@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Data Submission</title>
+  <style>
+   /* Styling for the form container */
+#myForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Styling for the input fields */
+#myForm input[type="text"],
+#myForm input[type="email"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styling for the submit button */
+#myForm button[type="button"] {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Hover effect for the submit button */
+#myForm button[type="button"]:hover {
+  background-color: #45a049;
+}
+
+  </style>
+</head>
+
+
+<body>
+  <form id="myForm">
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="phone" placeholder="phone number">
+    <button type="button">Submit</button>
+  </form>
+
+  <script>
+
+document.getElementById("myForm").addEventListener("click", function(event) {
+  event.preventDefault(); 
+
+  
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var phone = document.getElementById("phone").value;
+
+ 
+  var data = {
+    name: name,
+    email: email,
+    phone: phone
+  };
+
+  fetch("http://localhost/php%20project/apicalls/v1/create.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+    alert(result)
+    console.log(result);
+  })
+  .catch(error => {
+   
+    console.error("Error:", error);
+  });
+});
+  </script>
+</body>
+</html>

@@ -75,5 +75,25 @@ class Student
 
 
     }
+
+
+    public function delete_data(){
+
+        $delete_query = "DELETE from ".$this->table_name." WHERE id = ?";
+
+        $result = $this->conn->prepare($delete_query);
+
+        $result->bind_param("i",$this->id);
+
+       if ( $result->execute()) {
+        return true;
+       }else{
+        return false;
+       }
+
+        
+
+       
+    }
 }
 ?>

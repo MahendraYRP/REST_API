@@ -1,21 +1,17 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
-
 header("Access-Control-Allow-Methods: GET");
-
-
 
 include_once("../config/database.php");
 include_once("../classes/student.php");
-
 
 $db = new Database();
 $connect =   $db->connect();
 
 $student = new Student($connect);
 
-if ($_SERVER['REQUEST_METHOD'] === "GET") {
+ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
     $data = $student->get_all_data();
 

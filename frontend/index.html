@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Data Display</title>
+  <style>
+   
+    #data-container {
+      margin: 20px;
+    }
+  
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+  
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+  </style>
+  
+</head>
+<body>
+  <div id="data-container"></div>
+
+  <script>
+
+document.addEventListener('DOMContentLoaded', fetchData);
+
+function fetchData() {
+  fetch('http://localhost/php%20project/apicalls/v1/list-all.php')
+    .then(response => response.json())
+    .then(data => displayData(data))
+    .catch(error => console.log(error));
+}
+
+function displayData(data) {
+  const container = document.getElementById('data-container');
+  const dataArray = data.data;
+
+  if (dataArray.length === 0) {
+    container.innerHTML = '<p>No data available</p>';
+    return;
+  }
+ 
+  let html = '<table>';
+  html += '<tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Created At</th></tr>';
+
+  dataArray.forEach(item => {
+    html += '<tr>';
+    html += `<td>${item.id}</td>`;
+    html += `<td>${item.name}</td>`;
+    html += `<td>${item.email}</td>`;
+    html += `<td>${item.phone}</td>`;
+    html += `<td>${item.status}</td>`;
+    html += `<td>${item.create_at}</td>`;
+    html += '</tr>';
+  });
+
+  html += '</table>';
+
+  container.innerHTML = html;
+}
+  </script>
+</body>
+</html>
