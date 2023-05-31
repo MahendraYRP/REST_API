@@ -11,16 +11,13 @@ $db = new Database();
 $connect =   $db->connect();
 $student = new Student($connect);
 
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     $data = json_decode(file_get_contents("php://input"));
 
-
-   
-    if (!empty($data->name) && !empty($data->email) && !empty($data->phone) && !empty($data->id)) {
-    
-          
+    if (!empty($data->name) && !empty($data->email) && !empty($data->phone) && !empty($data->id)) {   
+        
+        
         $student->name = $data->name;
         $student->email = $data->email;
         $student->phone = $data->phone;
@@ -32,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 "status"=>0,
                 "message"=>"Student Data successfully updated",
             ));
-          
+           
         }else{
             http_response_code(500);
             echo json_encode(array(
