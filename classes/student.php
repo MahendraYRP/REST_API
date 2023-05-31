@@ -95,5 +95,27 @@ class Student
 
        
     }
+
+
+    public function update_data(){
+        $updateStudent = "UPDATE SET name = ?, email = ?, mobile = ? WHERE id = ?";
+
+        $result = $this->conn->prepare($updateStudent);
+
+        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->phone = htmlspecialchars(strip_tags($this->phone));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        $result->bind_param("sssi",$this->name, $this->email,$this->phone, $this->id);
+
+        if ($result->execute()) {
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 }
 ?>

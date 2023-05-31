@@ -25,11 +25,26 @@
       background-color: #f2f2f2;
       font-weight: bold;
     }
+    td {
+  padding: 10px; /* Adjust padding as desired */
+}
+
+#deleteBtn {
+  /* Add your desired styles for the delete button */
+  background-color: rgb(189, 26, 26);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
   </style>
   
 </head>
 <body>
+<a href="./form.html">Add Sutdent</a>
+
   <div id="data-container"></div>
+
 
   <script>
 
@@ -52,7 +67,7 @@ function displayData(data) {
   }
  
   let html = '<table>';
-  html += '<tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Created At</th></tr>';
+  html += '<tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Created At</th><th>Action</th></th></tr>';
 
   dataArray.forEach(item => {
     html += '<tr>';
@@ -62,13 +77,42 @@ function displayData(data) {
     html += `<td>${item.phone}</td>`;
     html += `<td>${item.status}</td>`;
     html += `<td>${item.create_at}</td>`;
+    html +=  `<td> <button id="deleteBtn" onclick="deleteBtnone(${item.id})">DELETE</button></td>`;
     html += '</tr>';
+   
   });
-
   html += '</table>';
-
   container.innerHTML = html;
 }
+
+
+ function deleteBtnone(id) {
+    
+    const deleteId = id;
+    deleteStudent(deleteId);
+  };
+
+  function deleteStudent(id) {
+    fetch(`http://localhost/php%20project/apicalls/v1/delete.php?id=${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 1) {
+        responseDiv.textContent = 'Student data is deleted';
+      } else {
+        responseDiv.textContent = 'Data not deleted';
+      }
+    })
+    .catch(error => {
+      responseDiv.textContent = 'An error occurred while deleting the data';
+    });
+  }
+
+
   </script>
 </body>
 </html>
